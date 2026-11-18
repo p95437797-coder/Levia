@@ -19,7 +19,7 @@ app.get('/health', async (req, res) => {
   try {
     await pool.query('SELECT 1');
     res.json({ success: true, data: { status: 'ok', db: 'up' } });
-  } catch (e) {
+  } catch (e) { console.error('DB check failed:', e.code, e.message);
     res.status(503).json({ success: false, error: { code: 'DB_DOWN', message: 'Database unreachable' } });
   }
 });
