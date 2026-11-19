@@ -179,5 +179,6 @@ async function resetPassword(token, newPassword) {
 }
 
 module.exports = {
-  register, login, refresh, logout, logoutAll, changePassword, requestPasswordReset, resetPassword
+  register, login, refresh, logout, logoutAll, changePassword, requestPasswordReset, resetPassword,
+  revokeEverywhere
 };

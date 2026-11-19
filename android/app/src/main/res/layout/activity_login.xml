@@ -83,6 +83,16 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/goForgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/fp_forgot_link"
+            android:textColor="@color/levia_lavender" />
+
+        <TextView
             android:id="@+id/goRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

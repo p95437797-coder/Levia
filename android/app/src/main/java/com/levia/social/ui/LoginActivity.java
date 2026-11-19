@@ -41,6 +41,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) { attemptLogin(); }
         });
+        findViewById(R.id.goForgot).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+            }
+        });
         findViewById(R.id.goRegister).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

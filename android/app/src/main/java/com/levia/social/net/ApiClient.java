@@ -75,6 +75,11 @@ public final class ApiClient {
                         String sent = response.request().header("Authorization");
                         if (sent == null) return null;            // e.g. wrong password on login: not a session problem
                         if (responseCount(response) >= 2) return null;
+                        // A wrong password (e.g. change password) is not an expired session: do not refresh.
+                        try {
+                            String peek = response.peekBody(2048).string();
+                            if (peek.contains("INVALID_CREDENTIALS")) return null;
+                        } catch (IOException ignored) { /* fall through to the refresh attempt */ }
                         synchronized (ApiClient.class) {
                             String current = store.getAccessToken();
                             if (current != null && !("Bearer " + current).equals(sent)) {

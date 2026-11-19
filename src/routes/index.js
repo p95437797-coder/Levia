@@ -7,6 +7,7 @@ const asyncHandler = require('../utils/asyncHandler');
 const router = express.Router();
 
 router.use('/auth', require('./authRoutes'));
+router.use('/account', require('./accountRoutes'));
 
 // Current user (used by the app to confirm a session is valid)
 router.get('/me', authenticate, asyncHandler(async (req, res) => {
