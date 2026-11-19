@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LEVIA</string>
+    <string name="tagline">Where thoughts become art</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="display_name">Display name</string>
+    <string name="log_in">Log in</string>
+    <string name="create_account">Create account</string>
+    <string name="no_account">New to LEVIA? Create an account</string>
+    <string name="have_account">Already have an account? Log in</string>
+    <string name="log_out">Log out</string>
+    <string name="home_placeholder">Your feed is coming in the next update. Your account is working.</string>
+</resources>
