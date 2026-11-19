@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Android Gradle Plugin 4.0.2 is compatible with Gradle 6.1.1 and Java 8.
 buildscript {
     repositories { google(); mavenCentral() }
@@ -5,3 +6,25 @@ buildscript {
 }
 allprojects { repositories { google(); mavenCentral() } }
 task clean(type: Delete) { delete rootProject.buildDir }
+=======
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.3'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+>>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e

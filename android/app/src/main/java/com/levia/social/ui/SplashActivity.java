@@ -2,13 +2,19 @@ package com.levia.social.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
+=======
+import android.os.Handler;
+import android.os.Looper;
+>>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.levia.social.R;
+<<<<<<< HEAD
 import com.levia.social.data.model.ApiResponse;
 import com.levia.social.data.model.MeData;
 import com.levia.social.net.ApiClient;
@@ -49,5 +55,23 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(i);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         finish();
+=======
+import com.levia.social.util.TokenStore;
+
+public class SplashActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        final boolean loggedIn = new TokenStore(this).isLoggedIn();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this,
+                        loggedIn ? MainActivity.class : LoginActivity.class));
+                finish();
+            }
+        }, 1000);
+>>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
     }
 }

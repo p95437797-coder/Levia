@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LEVIA Android + backend source
 
 ## Android project
@@ -71,3 +72,6 @@ The Android UI intentionally avoids pretending these unsupported operations succ
 ## Verification limits
 
 XML files were parsed and Java `R.id`, `R.string`, `R.layout`, `R.drawable`, `R.color` and `R.style` references were cross-checked against resources. A real Android Gradle build and device run could not be performed in this environment: the supplied archive omitted the Gradle wrapper launcher/JAR, and no Android SDK/Gradle installation is available here. Therefore this package is **not represented as a verified APK build**.
+=======
+# Levia
+>>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
