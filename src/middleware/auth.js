@@ -28,6 +28,12 @@ const authenticate = asyncHandler(async (req, res, next) => {
   next();
 });
 
+/** Like authenticate, but anonymous requests pass through with req.user undefined. A bad token is still a 401. */
+const optionalAuthenticate = (req, res, next) => {
+  if (!req.headers.authorization) return next();
+  return authenticate(req, res, next);
+};
+
 /** Authorization: allow only the listed roles. Use after authenticate. */
 const requireRole = (...roles) => (req, res, next) => {
   if (!req.user || !roles.includes(req.user.role)) {
@@ -36,4 +42,4 @@ const requireRole = (...roles) => (req, res, next) => {
   next();
 };
 
-module.exports = { authenticate, requireRole };
+module.exports = { authenticate, optionalAuthenticate, requireRole };

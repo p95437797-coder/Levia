@@ -1,8 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    namespace 'com.levia.social'
+    compileSdkVersion 35
+    buildToolsVersion "35.0.0"
+
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         applicationId "com.levia.social"
@@ -10,7 +15,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "0.1.0"
-        // Public API address only. NEVER put secrets here.
+
         buildConfigField "String", "API_BASE_URL", "\"https://levia-19ac.onrender.com/\""
     }
 

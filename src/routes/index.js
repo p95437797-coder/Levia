@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.use('/auth', require('./authRoutes'));
 router.use('/account', require('./accountRoutes'));
+router.use(require('./profileRoutes'));
+router.use(require('./followRoutes'));
 
 // Current user (used by the app to confirm a session is valid)
 router.get('/me', authenticate, asyncHandler(async (req, res) => {
