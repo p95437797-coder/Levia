@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center"
+ android:orientation="vertical" android:background="@drawable/bg_aurora">
+ <TextView android:id="@+id/splashLogo" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  android:text="✦  LEVIA" android:textColor="@color/levia_lavender" android:textSize="42sp" android:textStyle="bold" android:letterSpacing="0.12"/>
+ <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp"
+  android:text="@string/tagline" android:textColor="@color/levia_white" android:textSize="14sp"/>
+ <ProgressBar android:layout_width="28dp" android:layout_height="28dp" android:layout_marginTop="34dp"
+  android:indeterminateTint="@color/levia_lavender"/>
+</LinearLayout>

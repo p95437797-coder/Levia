@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="levia_black">#0A0912</color>
+    <color name="levia_dark_purple">#2A1745</color>
+    <color name="levia_violet">#9666FF</color>
+    <color name="levia_lavender">#D3C1FF</color>
+    <color name="levia_white">#FFFFFF</color>
+    <color name="levia_surface">#181326</color>
+    <color name="levia_muted">#A69DBB</color>
+    <color name="levia_error">#FF718F</color>
+</resources>
