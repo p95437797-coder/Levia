@@ -2,6 +2,14 @@ package com.levia.social.net;
 
 import com.levia.social.data.model.ApiResponse;
 import com.levia.social.data.model.AuthData;
+import com.levia.social.data.model.CommentPage;
+import com.levia.social.data.model.ConnectionPage;
+import com.levia.social.data.model.CommentRequest;
+import com.levia.social.data.model.CreatePostRequest;
+import com.levia.social.data.model.PostPage;
+import com.levia.social.data.model.Post;
+import com.levia.social.data.model.ProfileData;
+import com.levia.social.data.model.User;
 import com.levia.social.data.model.ChangeEmailRequest;
 import com.levia.social.data.model.ChangePasswordRequest;
 import com.levia.social.data.model.EmailData;
@@ -23,6 +31,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @POST("api/v1/auth/register")
@@ -66,4 +75,52 @@ public interface ApiService {
 
     @POST("api/v1/account/delete")
     Call<ApiResponse<Object>> deleteAccount(@Body PasswordRequest body);
+    @GET("api/v1/profile/me")
+    Call<ApiResponse<ProfileData>> myProfile();
+
+    @PATCH("api/v1/profile/me")
+    Call<ApiResponse<ProfileData>> updateProfile(@Body java.util.Map<String, Object> fields);
+
+    @GET("api/v1/users/{username}")
+    Call<ApiResponse<ProfileData>> profile(@Path("username") String username);
+
+    @GET("api/v1/users/search")
+    Call<ApiResponse<java.util.List<User>>> searchUsers(@Query("q") String query, @Query("limit") int limit);
+
+    @GET("api/v1/users/{username}/followers")
+    Call<ApiResponse<ConnectionPage>> followers(@Path("username") String username, @Query("limit") int limit);
+
+    @GET("api/v1/users/{username}/following")
+    Call<ApiResponse<ConnectionPage>> following(@Path("username") String username, @Query("limit") int limit);
+
+    @GET("api/v1/posts/feed")
+    Call<ApiResponse<PostPage>> feed(@Query("limit") int limit);
+
+    @GET("api/v1/posts/search")
+    Call<ApiResponse<PostPage>> searchPosts(@Query("q") String query, @Query("limit") int limit);
+
+    @GET("api/v1/users/{username}/posts")
+    Call<ApiResponse<PostPage>> userPosts(@Path("username") String username, @Query("limit") int limit);
+
+    @POST("api/v1/posts")
+    Call<ApiResponse<Post>> createPost(@Body CreatePostRequest body);
+
+    @POST("api/v1/posts/{postId}/like")
+    Call<ApiResponse<LikeResult>> likePost(@Path("postId") String postId);
+
+    @retrofit2.http.DELETE("api/v1/posts/{postId}/like")
+    Call<ApiResponse<LikeResult>> unlikePost(@Path("postId") String postId);
+
+    @GET("api/v1/posts/{postId}/comments")
+    Call<ApiResponse<CommentPage>> comments(@Path("postId") String postId);
+
+    @POST("api/v1/posts/{postId}/comments")
+    Call<ApiResponse<Comment>> addComment(@Path("postId") String postId, @Body CommentRequest body);
+
+    @POST("api/v1/users/{userId}/follow")
+    Call<ApiResponse<java.util.Map<String, Object>>> follow(@Path("userId") String userId);
+
+    @retrofit2.http.DELETE("api/v1/users/{userId}/follow")
+    Call<ApiResponse<java.util.Map<String, Object>>> unfollow(@Path("userId") String userId);
+
 }

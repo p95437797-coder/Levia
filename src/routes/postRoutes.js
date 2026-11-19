@@ -1,0 +1,14 @@
+'use strict';
+const express = require('express');
+const { authenticate } = require('../middleware/auth');
+const c = require('../controllers/postController');
+const router = express.Router();
+router.get('/posts/feed', authenticate, c.feed);
+router.get('/posts/search', authenticate, c.search);
+router.get('/users/:username/posts', authenticate, c.byUser);
+router.post('/posts', authenticate, c.create);
+router.post('/posts/:postId/like', authenticate, c.like);
+router.delete('/posts/:postId/like', authenticate, c.unlike);
+router.get('/posts/:postId/comments', authenticate, c.comments);
+router.post('/posts/:postId/comments', authenticate, c.addComment);
+module.exports = router;
