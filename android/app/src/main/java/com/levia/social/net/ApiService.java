@@ -14,15 +14,6 @@ import com.levia.social.data.model.RegisterRequest;
 import com.levia.social.data.model.ResetPasswordRequest;
 import com.levia.social.data.model.SessionsData;
 import com.levia.social.data.model.Tokens;
-<<<<<<< HEAD
-import com.levia.social.data.model.ProfileData;
-import com.levia.social.data.model.SearchUser;
-import com.levia.social.data.model.FollowResult;
-import com.levia.social.data.model.ConnectionPage;
-import java.util.List;
-import java.util.Map;
-=======
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,10 +23,6 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-<<<<<<< HEAD
-import retrofit2.http.Query;
-=======
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 
 public interface ApiService {
     @POST("api/v1/auth/register")
@@ -79,28 +66,4 @@ public interface ApiService {
 
     @POST("api/v1/account/delete")
     Call<ApiResponse<Object>> deleteAccount(@Body PasswordRequest body);
-<<<<<<< HEAD
-    @GET("api/v1/profile/me")
-    Call<ApiResponse<ProfileData>> myProfile();
-
-    @PATCH("api/v1/profile/me")
-    Call<ApiResponse<ProfileData>> updateMyProfile(@Body Map<String, Object> fields);
-
-    @GET("api/v1/users/search")
-    Call<ApiResponse<List<SearchUser>>> searchUsers(@Query("q") String query, @Query("limit") int limit);
-
-    @POST("api/v1/users/{userId}/follow")
-    Call<ApiResponse<FollowResult>> followUser(@Path("userId") String userId);
-
-    @DELETE("api/v1/users/{userId}/follow")
-    Call<ApiResponse<FollowResult>> unfollowUser(@Path("userId") String userId);
-
-    @GET("api/v1/users/{username}/followers")
-    Call<ApiResponse<ConnectionPage>> followers(@Path("username") String username, @Query("limit") int limit);
-
-    @GET("api/v1/users/{username}/following")
-    Call<ApiResponse<ConnectionPage>> following(@Path("username") String username, @Query("limit") int limit);
-
-=======
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 }

@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-<<<<<<< HEAD
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
-=======
     namespace 'com.levia.social'
     compileSdkVersion 35
     buildToolsVersion "35.0.0"
@@ -12,7 +8,6 @@ android {
     buildFeatures {
         buildConfig true
     }
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 
     defaultConfig {
         applicationId "com.levia.social"
@@ -20,10 +15,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "0.1.0"
-<<<<<<< HEAD
-=======
 
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
         buildConfigField "String", "API_BASE_URL", "\"https://levia-19ac.onrender.com/\""
     }
 
@@ -32,15 +24,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-<<<<<<< HEAD
-    buildTypes { release { minifyEnabled false } }
-=======
     buildTypes {
         release {
             minifyEnabled false
         }
     }
->>>>>>> 3f88e13d33c3fc6e86f87fc1afc4a9b9ca0f4c0e
 }
 
 dependencies {
