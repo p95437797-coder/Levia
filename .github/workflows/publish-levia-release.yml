@@ -1,0 +1,73 @@
+
+name: Publish LEVIA APK to Render
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Download release APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p website/downloads
+          gh release download "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern '*.apk' \
+            --dir "$RUNNER_TEMP/apk"
+
+          COUNT=$(find "$RUNNER_TEMP/apk" -iname '*.apk' | wc -l)
+          if [ "$COUNT" -ne 1 ]; then
+            echo "Expected exactly one APK, found $COUNT"
+            exit 1
+          fi
+
+          cp "$(find "$RUNNER_TEMP/apk" -iname '*.apk' | head -n 1)" \
+            website/downloads/levia.apk
+
+      - name: Update version information
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+
+          tag = os.environ["GITHUB_REF_NAME"]
+          version = tag[1:] if tag.lower().startswith("v") else tag
+
+          notes = subprocess.check_output([
+              "gh", "release", "view", tag,
+              "--repo", os.environ["GITHUB_REPOSITORY"],
+              "--json", "body", "--jq", ".body"
+          ], text=True).strip()
+
+          data = {
+              "versionName": version,
+              "downloadUrl": "./downloads/levia.apk",
+              "releaseNotes": notes,
+              "releaseTag": tag
+          }
+
+          with open("website/version.json", "w") as f:
+              json.dump(data, f, indent=2)
+          PY
+
+      - name: Publish to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/downloads/levia.apk website/version.json
+          git commit -m "Publish LEVIA ${GITHUB_REF_NAME}"
+          git push origin HEAD:main
