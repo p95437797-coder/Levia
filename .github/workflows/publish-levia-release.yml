@@ -4,7 +4,6 @@ name: Publish LEVIA APK to Render
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,45 +11,70 @@ permissions:
 jobs:
   publish-apk:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
 
-      - name: Download release APK
+      - name: Prepare download folder
+        run: |
+          if [ -e website/downloads ] && [ ! -d website/downloads ]; then
+            rm -f website/downloads
+          fi
+
+          mkdir -p website/downloads
+
+      - name: Download APK from GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p website/downloads
+          mkdir -p "$RUNNER_TEMP/levia-release"
+
           gh release download "$GITHUB_REF_NAME" \
             --repo "$GITHUB_REPOSITORY" \
             --pattern '*.apk' \
-            --dir "$RUNNER_TEMP/apk"
+            --dir "$RUNNER_TEMP/levia-release"
 
-          COUNT=$(find "$RUNNER_TEMP/apk" -iname '*.apk' | wc -l)
-          if [ "$COUNT" -ne 1 ]; then
-            echo "Expected exactly one APK, found $COUNT"
+          APK_COUNT=$(find "$RUNNER_TEMP/levia-release" \
+            -maxdepth 1 -type f -iname '*.apk' | wc -l)
+
+          if [ "$APK_COUNT" -ne 1 ]; then
+            echo "Expected exactly one APK, found $APK_COUNT"
             exit 1
           fi
 
-          cp "$(find "$RUNNER_TEMP/apk" -iname '*.apk' | head -n 1)" \
-            website/downloads/levia.apk
+          APK_FILE=$(find "$RUNNER_TEMP/levia-release" \
+            -maxdepth 1 -type f -iname '*.apk' | head -n 1)
 
-      - name: Update version information
+          cp "$APK_FILE" website/downloads/levia.apk
+
+      - name: Generate version information
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import json, os, subprocess
+          import json
+          import os
+          import subprocess
 
           tag = os.environ["GITHUB_REF_NAME"]
+
           version = tag[1:] if tag.lower().startswith("v") else tag
 
           notes = subprocess.check_output([
-              "gh", "release", "view", tag,
-              "--repo", os.environ["GITHUB_REPOSITORY"],
-              "--json", "body", "--jq", ".body"
+              "gh",
+              "release",
+              "view",
+              tag,
+              "--repo",
+              os.environ["GITHUB_REPOSITORY"],
+              "--json",
+              "body",
+              "--jq",
+              ".body"
           ], text=True).strip()
 
           data = {
@@ -60,14 +84,18 @@ jobs:
               "releaseTag": tag
           }
 
-          with open("website/version.json", "w") as f:
-              json.dump(data, f, indent=2)
+          with open("website/version.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+              f.write("\n")
           PY
 
-      - name: Publish to main
+      - name: Commit updated APK and version
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add website/downloads/levia.apk website/version.json
+
           git commit -m "Publish LEVIA ${GITHUB_REF_NAME}"
+
           git push origin HEAD:main
