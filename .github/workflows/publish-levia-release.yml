@@ -25,7 +25,7 @@ jobs:
             rm -f website/downloads
           fi
 
-          mkdir -p website/downloads
+          
 
       - name: Download APK from GitHub Release
         env:
