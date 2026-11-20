@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d1c">
+  <meta name="description" content="Download LEVIA, connect, share and discover communities.">
+  <title>LEVIA — Stay Connected</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav"><a class="brand" href="./"><span class="brand-mark">L</span><span>LEVIA</span></a><span class="nav-note">OFFICIAL APP</span></nav>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> YOUR COMMUNITY, YOUR SPACE</div>
+      <h1>Stay close.<br><span>Stay LEVIA.</span></h1>
+      <p class="intro">Share moments, discover people, and stay connected with your community — all in one place.</p>
+      <div class="download-panel">
+        <div class="app-line"><div class="app-icon">L</div><div class="app-meta"><strong>LEVIA for Android</strong><span id="version">Checking latest version…</span></div><span class="android-tag">ANDROID</span></div>
+        <a class="download-button disabled" id="download" href="#" aria-disabled="true">Preparing download <span>↓</span></a>
+        <p class="download-note" id="download-note">The latest APK will appear here after the first GitHub Release is published.</p>
+        <div class="release-notes" id="release-notes" hidden></div>
+      </div>
+      <p class="safe-note">Only install LEVIA updates from this official page. Android may ask you to allow installs from your browser.</p>
+    </section>
+    <section class="features">
+      <article><span>01</span><h2>Share your world</h2><p>Post moments and connect through conversations.</p></article>
+      <article><span>02</span><h2>Find your people</h2><p>Discover creators and communities that interest you.</p></article>
+      <article><span>03</span><h2>Keep improving</h2><p>Get the newest LEVIA features with in-app update notifications.</p></article>
+    </section>
+    <footer><span>© <span id="year"></span> LEVIA</span><a href="https://github.com/p95437797-coder/Levia/releases" target="_blank" rel="noopener">Release history ↗</a></footer>
+  </main>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    fetch('./version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => { if (!r.ok) throw new Error('No release yet'); return r.json(); })
+      .then(v => {
+        document.getElementById('version').textContent = 'Latest version ' + (v.versionName || 'available');
+        const a = document.getElementById('download');
+        a.href = v.downloadUrl || './downloads/levia.apk';
+        a.classList.remove('disabled'); a.removeAttribute('aria-disabled');
+        a.innerHTML = 'Download for Android <span>↓</span>';
+        document.getElementById('download-note').textContent = v.fileSize || 'APK download · Android';
+        if (v.releaseNotes) {
+          const box = document.getElementById('release-notes');
+          box.hidden = false; box.textContent = v.releaseNotes;
+        }
+      })
+      .catch(() => {
+        document.getElementById('version').textContent = 'Waiting for first release';
+        document.getElementById('download-note').textContent = 'The download button will activate automatically after you publish an APK in GitHub Releases.';
+      });
+  </script>
+</body>
+</html>
