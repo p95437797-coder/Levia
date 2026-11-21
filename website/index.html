@@ -1,55 +1,263 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#100d1c">
-  <meta name="description" content="Download LEVIA, connect, share and discover communities.">
-  <title>LEVIA — Stay Connected</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0812">
+<meta name="description" content="LEVIA is a home for poetry, shayari and heartfelt words. Download the app and share what you feel.">
+<title>LEVIA — Where words find their soul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{--bg:#0b0812;--card:#16111f;--line:#2a2038;--p:#8b5cf6;--pl:#c084fc;--pink:#f472b6;--tx:#f5f3ff;--mu:#a095b8;--grad:linear-gradient(135deg,#7c3aed,#c026d3 60%,#f472b6)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.serif{font-family:Fraunces,Georgia,serif}
+.wrap{width:min(1240px,100% - 40px);margin-inline:auto}
+
+/* background orbs */
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.orbs i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;animation:drift 18s ease-in-out infinite alternate}
+.orbs i:nth-child(1){width:560px;height:560px;background:#6d28d9;top:-160px;left:-120px}
+.orbs i:nth-child(2){width:480px;height:480px;background:#c026d3;top:30%;right:-160px;animation-delay:-6s;opacity:.35}
+.orbs i:nth-child(3){width:520px;height:520px;background:#4c1d95;bottom:-200px;left:25%;animation-delay:-11s}
+@keyframes drift{to{transform:translate(70px,50px) scale(1.15)}}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(11,8,18,.6);border-bottom:1px solid rgba(42,32,56,.7)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;font:800 24px Fraunces,serif;letter-spacing:.14em}
+.mark{width:44px;height:44px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font:800 24px Fraunces,serif;letter-spacing:0;box-shadow:0 8px 30px rgba(192,38,211,.45)}
+.links{display:flex;gap:34px;font-weight:500;color:var(--mu);font-size:16px}
+.links a:hover{color:var(--tx)}
+.pill{padding:12px 24px;border-radius:99px;background:var(--grad);font-weight:700;font-size:16px;box-shadow:0 8px 28px rgba(139,92,246,.4);transition:.25s}
+.pill:hover{transform:translateY(-2px) scale(1.03)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:90px 0 70px;min-height:calc(100vh - 76px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border:1px solid var(--line);border-radius:99px;background:rgba(22,17,31,.7);font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--pl)}
+.dot{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 #34d399;animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 12px transparent}}
+h1{font:800 clamp(3.4rem,8.4vw,7.2rem)/.98 Fraunces,serif;letter-spacing:-.03em;margin:26px 0}
+h1 em{font-style:italic;background:linear-gradient(90deg,#a78bfa,#f472b6,#c084fc,#a78bfa);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.lead{font-size:clamp(1.15rem,2vw,1.4rem);color:var(--mu);max-width:560px}
+
+.dl-box{margin-top:38px;max-width:560px;padding:22px;border-radius:30px;background:rgba(22,17,31,.8);border:1px solid var(--line);backdrop-filter:blur(10px)}
+.app-row{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.app-row .mark{width:62px;height:62px;border-radius:20px;font-size:32px}
+.app-row strong{display:block;font-size:20px}
+.app-row span{color:var(--mu);font-size:15px}
+.tag{margin-left:auto;padding:6px 14px;border-radius:99px;background:rgba(52,211,153,.12);color:#34d399;font-size:12px;font-weight:800;letter-spacing:.1em}
+.dl{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:14px;width:100%;padding:24px;border-radius:22px;background:var(--grad);font-size:22px;font-weight:800;box-shadow:0 18px 50px rgba(192,38,211,.45);transition:.3s}
+.dl::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:sweep 3.2s infinite}
+@keyframes sweep{to{left:160%}}
+.dl:hover{transform:translateY(-4px) scale(1.015)}
+.dl .arr{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+.dl.off{filter:grayscale(.5) brightness(.8);pointer-events:none}
+.dl.off::after,.dl.off .arr{animation:none}
+.note{margin-top:14px;text-align:center;color:var(--mu);font-size:14px}
+.notes-box{margin-top:14px;padding:14px 18px;border-radius:16px;background:rgba(139,92,246,.1);border:1px solid var(--line);color:var(--mu);font-size:15px;white-space:pre-line}
+.trust{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:26px;color:var(--mu);font-size:15px;font-weight:500}
+.trust b{color:#34d399;margin-right:6px}
+
+/* phone */
+.stage{position:relative;display:grid;place-items:center;perspective:1200px}
+.phone{position:relative;width:min(370px,78vw);aspect-ratio:9/18.4;border-radius:50px;padding:12px;background:linear-gradient(160deg,#3b2a57,#14101d);box-shadow:0 60px 120px rgba(124,58,237,.5),inset 0 0 0 2px #4a3a66;transform-style:preserve-3d;transition:transform .2s;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{translate:0 -18px}}
+.screen{height:100%;border-radius:40px;background:linear-gradient(160deg,#120b1d,#0b0812);overflow:hidden;padding:26px 18px 0;display:flex;flex-direction:column;gap:14px}
+.notch{width:90px;height:24px;border-radius:99px;background:#000;margin:-14px auto 4px}
+.s-top{display:flex;align-items:center;gap:10px;font:800 18px Fraunces,serif;letter-spacing:.12em}
+.s-top .mark{width:30px;height:30px;border-radius:10px;font-size:16px}
+.chips{display:flex;gap:8px;overflow:hidden}
+.chips span{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mu);font-size:12px;font-weight:700;white-space:nowrap}
+.chips span:first-child{background:var(--grad);color:#fff;border-color:transparent}
+.feat{padding:18px;border-radius:22px;background:linear-gradient(135deg,#5b21b6,#7c3aed,#b83ce0)}
+.feat small{font-size:10px;letter-spacing:.14em;font-weight:800;opacity:.8}
+.feat p{font:700 20px/1.25 Fraunces,serif;margin:10px 0 6px}
+.feat span{font-size:12px;opacity:.8}
+.post{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.post .u{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}
+.av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:13px}
+.post p{font:italic 500 15px/1.4 Fraunces,serif;margin-top:10px;color:#e9e3f7}
+.s-nav{margin-top:auto;margin-inline:-18px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;background:#110c19;border-top:1px solid var(--line);color:var(--mu);font-size:18px}
+.s-nav b{width:42px;height:42px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:24px}
+.float{position:absolute;padding:14px 20px;border-radius:20px;background:rgba(22,17,31,.9);border:1px solid var(--line);backdrop-filter:blur(12px);font-weight:700;font-size:15px;box-shadow:0 20px 50px rgba(0,0,0,.5);animation:float 5s ease-in-out infinite}
+.f1{top:12%;left:-4%;animation-delay:-1s}.f2{bottom:22%;right:-6%;animation-delay:-3s}.f3{bottom:6%;left:0;animation-delay:-2s}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);background:rgba(22,17,31,.5);overflow:hidden;padding:26px 0}
+.track{display:flex;gap:56px;width:max-content;animation:scroll 28s linear infinite;font:italic 600 clamp(1.6rem,3.4vw,2.6rem) Fraunces,serif;color:var(--mu)}
+.track span:nth-child(even){color:var(--pl)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:110px 0}
+.kick{color:var(--pl);font-weight:800;letter-spacing:.16em;font-size:14px}
+h2{font:800 clamp(2.4rem,5.6vw,4.4rem)/1.05 Fraunces,serif;letter-spacing:-.02em;margin:14px 0 18px;max-width:860px}
+.sub{color:var(--mu);max-width:640px;font-size:1.2rem}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:56px}
+.card{position:relative;overflow:hidden;padding:42px;border-radius:32px;background:var(--card);border:1px solid var(--line);transition:.35s}
+.card:hover{transform:translateY(-8px);border-color:var(--p);box-shadow:0 30px 80px rgba(124,58,237,.25)}
+.card::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:var(--grad);opacity:.18;filter:blur(30px);transition:.4s}
+.card:hover::before{opacity:.45;transform:scale(1.3)}
+.ic{width:70px;height:70px;border-radius:22px;background:var(--grad);display:grid;place-items:center;font-size:34px;margin-bottom:26px;box-shadow:0 12px 34px rgba(192,38,211,.4)}
+.card h3{font:800 clamp(1.6rem,2.6vw,2.1rem)/1.15 Fraunces,serif;margin-bottom:12px}
+.card p{color:var(--mu);font-size:1.1rem}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.step{padding:40px 34px;border-radius:32px;border:1px dashed #3a2c52}
+.step b{display:block;font:800 clamp(4rem,8vw,6rem)/1 Fraunces,serif;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-size:1.6rem;margin:12px 0 8px}
+.step p{color:var(--mu)}
+.help{margin-top:30px;padding:30px 36px;border-radius:28px;background:rgba(139,92,246,.08);border:1px solid var(--line);color:var(--mu)}
+.help strong{color:var(--tx)}
+
+details{border-bottom:1px solid var(--line);padding:6px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:1.3rem;font-weight:700}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:2rem;color:var(--pl);transition:.3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mu);padding:0 0 24px;max-width:760px}
+.faq{max-width:900px;margin-top:40px}
+
+.cta{margin:30px 0 110px;padding:clamp(40px,7vw,90px) 28px;border-radius:44px;text-align:center;background:linear-gradient(135deg,#4c1d95,#7c3aed 55%,#c026d3);position:relative;overflow:hidden}
+.cta h2{margin-inline:auto}
+.cta .sub{margin:0 auto 36px;color:#ede4ff}
+.cta .dl{max-width:480px;margin:auto;background:#fff;color:#4c1d95;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.cta .dl .arr{background:#4c1d95;color:#fff}
+.cta .note{color:#e5d9ff}
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--mu);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
+footer a:hover{color:var(--tx)}
+
+.js .rv{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media(max-width:940px){.hero{grid-template-columns:1fr;padding-top:50px;text-align:center}.lead,.dl-box{margin-inline:auto}.trust{justify-content:center}.links{display:none}.grid,.steps{grid-template-columns:1fr}.stage{margin-top:30px}.f1{left:0}.f2{right:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <main class="shell">
-    <nav class="nav"><a class="brand" href="./"><span class="brand-mark">L</span><span>LEVIA</span></a><span class="nav-note">OFFICIAL APP</span></nav>
-    <section class="hero">
-      <div class="eyebrow"><span class="pulse"></span> YOUR COMMUNITY, YOUR SPACE</div>
-      <h1>Stay close.<br><span>Stay LEVIA.</span></h1>
-      <p class="intro">Share moments, discover people, and stay connected with your community — all in one place.</p>
-      <div class="download-panel">
-        <div class="app-line"><div class="app-icon">L</div><div class="app-meta"><strong>LEVIA for Android</strong><span id="version">Checking latest version…</span></div><span class="android-tag">ANDROID</span></div>
-        <a class="download-button disabled" id="download" href="#" aria-disabled="true">Preparing download <span>↓</span></a>
-        <p class="download-note" id="download-note">The latest APK will appear here after the first GitHub Release is published.</p>
-        <div class="release-notes" id="release-notes" hidden></div>
-      </div>
-      <p class="safe-note">Only install LEVIA updates from this official page. Android may ask you to allow installs from your browser.</p>
-    </section>
-    <section class="features">
-      <article><span>01</span><h2>Share your world</h2><p>Post moments and connect through conversations.</p></article>
-      <article><span>02</span><h2>Find your people</h2><p>Discover creators and communities that interest you.</p></article>
-      <article><span>03</span><h2>Keep improving</h2><p>Get the newest LEVIA features with in-app update notifications.</p></article>
-    </section>
-    <footer><span>© <span id="year"></span> LEVIA</span><a href="https://github.com/p95437797-coder/Levia/releases" target="_blank" rel="noopener">Release history ↗</a></footer>
-  </main>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    fetch('./version.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => { if (!r.ok) throw new Error('No release yet'); return r.json(); })
-      .then(v => {
-        document.getElementById('version').textContent = 'Latest version ' + (v.versionName || 'available');
-        const a = document.getElementById('download');
-        a.href = v.downloadUrl || './downloads/levia.apk';
-        a.classList.remove('disabled'); a.removeAttribute('aria-disabled');
-        a.innerHTML = 'Download for Android <span>↓</span>';
-        document.getElementById('download-note').textContent = v.fileSize || 'APK download · Android';
-        if (v.releaseNotes) {
-          const box = document.getElementById('release-notes');
-          box.hidden = false; box.textContent = v.releaseNotes;
-        }
-      })
-      .catch(() => {
-        document.getElementById('version').textContent = 'Waiting for first release';
-        document.getElementById('download-note').textContent = 'The download button will activate automatically after you publish an APK in GitHub Releases.';
-      });
-  </script>
+<div class="orbs"><i></i><i></i><i></i></div>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="mark">L</span>LEVIA</a>
+  <div class="links"><a href="#features">Features</a><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+  <a class="pill" href="#download">Download</a>
+</div></nav>
+
+<main id="top">
+<div class="wrap hero">
+  <div>
+    <div class="eyebrow"><span class="dot"></span>OFFICIAL LEVIA APP</div>
+    <h1>Where words find their <em>soul.</em></h1>
+    <p class="lead">A beautiful home for poetry, shayari and the thoughts you never say out loud. Write, discover and share with people who feel the same.</p>
+
+    <div class="dl-box" id="download">
+      <div class="app-row"><div class="mark">L</div><div><strong>LEVIA for Android</strong><span id="version">Checking latest version…</span></div><span class="tag">OFFICIAL</span></div>
+      <a class="dl off" href="#" aria-disabled="true"><span class="lbl">Getting your download ready</span><span class="arr">↓</span></a>
+      <p class="note dl-note">Free to download · Android</p>
+      <div class="notes-box" id="release-notes" hidden></div>
+    </div>
+    <div class="trust"><span><b>✓</b>Free to use</span><span><b>✓</b>Safe official download</span><span><b>✓</b>Updates built in</span></div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="phone" id="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="s-top"><span class="mark">L</span>LEVIA</div>
+      <div class="chips"><span>All</span><span>Poetry</span><span>Shayari</span><span>Love</span></div>
+      <div class="feat"><small>✦ POEM OF THE DAY</small><p>Some words are not written, they are felt.</p><span>— Anonymous</span></div>
+      <div class="post"><div class="u"><div class="av">M</div>Meera Iyer</div><p>I tried to write about the ocean, but every line came back as your name.</p></div>
+      <div class="s-nav"><span>⌂</span><span>⌕</span><b>+</b><span>♡</span><span>☻</span></div>
+    </div></div>
+    <div class="float f1">♥ 2.4k loves</div>
+    <div class="float f2">✍️ New poem</div>
+    <div class="float f3">💬 86 replies</div>
+  </div>
+</div>
+
+<div class="marq" aria-hidden="true"><div class="track">
+  <span>Poetry</span><span>Shayari</span><span>Motivation</span><span>Thoughts</span><span>Love</span><span>Life</span><span>Poetry</span><span>Shayari</span><span>Motivation</span><span>Thoughts</span><span>Love</span><span>Life</span>
+</div></div>
+
+<section id="features"><div class="wrap">
+  <div class="kick rv">WHY YOU’LL LOVE IT</div>
+  <h2 class="rv">Made for people who feel deeply.</h2>
+  <p class="sub rv">Everything in LEVIA is designed to make your words look beautiful and reach the right hearts.</p>
+  <div class="grid">
+    <article class="card rv"><div class="ic">✍️</div><h3>Write beautifully</h3><p>A calm, distraction-free space to turn feelings into poems, shayari and quotes you’re proud of.</p></article>
+    <article class="card rv"><div class="ic">🔍</div><h3>Discover new voices</h3><p>Find writers and communities that match your mood, from heartbreak to hope.</p></article>
+    <article class="card rv"><div class="ic">💜</div><h3>Save what moves you</h3><p>Keep your favourite lines in one place and come back to them whenever you need.</p></article>
+    <article class="card rv"><div class="ic">✨</div><h3>Always getting better</h3><p>New features arrive regularly, and the app lets you know when an update is ready.</p></article>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="kick rv">GET STARTED</div>
+  <h2 class="rv">Ready in under a minute.</h2>
+  <div class="steps">
+    <div class="step rv"><b>1</b><h3>Download</h3><p>Tap the download button on this page.</p></div>
+    <div class="step rv"><b>2</b><h3>Install</h3><p>Open the file and tap Install when Android asks.</p></div>
+    <div class="step rv"><b>3</b><h3>Start writing</h3><p>Create your account and share your first thought.</p></div>
+  </div>
+  <div class="help rv"><strong>Android shows a permission message?</strong> That’s normal for apps installed outside the Play Store. Tap <strong>Settings</strong>, allow installs from your browser, then go back and tap <strong>Install</strong>. Only download LEVIA from this official page.</div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="kick rv">QUESTIONS</div>
+  <h2 class="rv">Good to know.</h2>
+  <div class="faq rv">
+    <details><summary>Is LEVIA free?</summary><p>Yes. You can download LEVIA and start sharing right away.</p></details>
+    <details><summary>Is it safe to install?</summary><p>This page is the official source for LEVIA. Always download from here so you get the genuine app.</p></details>
+    <details><summary>How do I get updates?</summary><p>The app tells you when a new version is available. You can also come back to this page and download the latest one anytime.</p></details>
+    <details><summary>Is it available for iPhone?</summary><p>LEVIA is currently available for Android phones.</p></details>
+  </div>
+</div></section>
+
+<div class="wrap"><div class="cta rv">
+  <h2 class="serif">Your words deserve a home.</h2>
+  <p class="sub">Join LEVIA today and let your feelings find their voice.</p>
+  <a class="dl off" href="#" aria-disabled="true"><span class="lbl">Getting your download ready</span><span class="arr">↓</span></a>
+  <p class="note dl-note">Free to download · Android</p>
+</div></div>
+</main>
+
+<footer><div class="wrap">
+  <span>© <span id="year"></span> LEVIA · Where words find their soul</span>
+  <a href="https://github.com/p95437797-coder/Levia/releases" target="_blank" rel="noopener">Previous versions ↗</a>
+</div></footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+/* download link (same version.json logic as before) */
+const btns=document.querySelectorAll('.dl'),notes=document.querySelectorAll('.dl-note');
+fetch('./version.json?t='+Date.now(),{cache:'no-store'})
+ .then(r=>{if(!r.ok)throw 0;return r.json()})
+ .then(v=>{
+   document.getElementById('version').textContent='Latest version '+(v.versionName||'available');
+   btns.forEach(a=>{a.href=v.downloadUrl||'./downloads/levia.apk';a.classList.remove('off');a.removeAttribute('aria-disabled');a.querySelector('.lbl').textContent='Download for Android'});
+   notes.forEach(n=>n.textContent=(v.fileSize?v.fileSize+' · ':'')+'Free to download · Android');
+   if(v.releaseNotes){const b=document.getElementById('release-notes');b.hidden=false;b.textContent="What's new\n"+v.releaseNotes}
+ })
+ .catch(()=>{
+   document.getElementById('version').textContent='Coming very soon';
+   btns.forEach(a=>a.querySelector('.lbl').textContent='Download coming soon');
+ });
+
+/* scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)});
+
+/* phone tilt */
+const st=document.getElementById('stage'),ph=document.getElementById('phone');
+st.addEventListener('mousemove',e=>{const r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;ph.style.transform=`rotateY(${x*18}deg) rotateX(${-y*14}deg)`});
+st.addEventListener('mouseleave',()=>ph.style.transform='');
+</script>
 </body>
 </html>
